@@ -21,21 +21,20 @@ const numWrong = 0;
 // The divs should be appended to the section with id="word-container".
 const createDivsForChars = (word) => {
   for (const letter of word) {
-    document.querySelector("#word-container").insertAdjacentHTML('beforeend', `<div class="letter-box" ${letter}> </div>`);
-
+    document.querySelector("#word-container").insertAdjacentHTML('beforeend', `<div class="letter-box ${letter}"> </div>`);
   }
 };
+
+
 
 // Loop over each letter in the alphabet and generate a button for each letter
 // The buttons should be appended to the section with id="letter-buttons"
 const generateLetterButtons = () => {
-  // Replace this with your code
+
   for (const letter of ALPHABET) {
     document.querySelector("#letter-buttons").insertAdjacentHTML('beforeend', `<button id="#letter-buttons"> ${letter} </button>`);
   }
 };
-// for letter in alphabet:
-// <button id="letter-buttons"> ${letter} </button>
 
 
 // Set the `disabled` property of `buttonEl` to `true.
@@ -43,7 +42,6 @@ const generateLetterButtons = () => {
 // `buttonEl` is an `HTMLElement` object.
 //
 const disableLetterButton = (buttonEl) => {
-  // Replace this with your code
   buttonEl.disabled = true;
 };
 
@@ -54,6 +52,9 @@ const disableLetterButton = (buttonEl) => {
 const isLetterInWord = (letter) => {
   return document.querySelector(`div.${letter}`) != null;
 };
+
+
+
 
 // This is like if __name__ == '__main__' in Python
 // It will be called when the file is run (because
