@@ -27,12 +27,13 @@ const createDivsForChars = (word) => {
 
 
 
+
 // Loop over each letter in the alphabet and generate a button for each letter
 // The buttons should be appended to the section with id="letter-buttons"
 const generateLetterButtons = () => {
 
   for (const letter of ALPHABET) {
-    document.querySelector("#letter-buttons").insertAdjacentHTML('beforeend', `<button id="#letter-buttons"> ${letter} </button>`);
+    document.querySelector("#letter-buttons").insertAdjacentHTML('beforeend', `<button class="letter-buttons">${letter} </button>`);
   }
 };
 
@@ -42,6 +43,8 @@ const generateLetterButtons = () => {
 // `buttonEl` is an `HTMLElement` object.
 //
 const disableLetterButton = (buttonEl) => {
+  console.log(" disabling this > ", buttonEl)
+
   buttonEl.disabled = true;
 };
 
@@ -53,6 +56,37 @@ const isLetterInWord = (letter) => {
   return document.querySelector(`div.${letter}`) != null;
 };
 
+
+const handleCorrectGuess = (letter) => {
+  // display div
+  console.log ("fill in: ", letter)
+
+  const matches=document.querySelectorAll(`div.${letter}`);
+
+  for (const match of matches) {
+    match.innerText = letter;
+    disableLetterButton(match);
+  }
+
+  const disableMe=document.querySelector(`.letter-buttons ${letter}`)
+  console.log(" selected: ::: > ", disableMe)
+
+  // handleCorrectGuess=(e,t)=>{
+  //   const n=document.querySelectorAll(`div.${e}`);
+  
+  //   for(const t of n)t.innerHTML=e,correctGuesses+=1;
+  // correctGuesses===t.length&&(disableAllLetterButtons(),
+  // document.querySelector("#win").style.display="block")}
+  
+
+
+}
+
+const handleWrongGuess = () => {
+  // numWrong += 1
+  // link numWrong with guess1-5.png
+  console.log ("Wrong guess $$$$$$$$$$")
+}
 
 
 
@@ -76,6 +110,26 @@ const isLetterInWord = (letter) => {
 
   // in the next lab, you will be adding functionality to handle when
   // someone clicks on a letter
+  // const button = document.querySelector('#angry-button');
 
+  // const handleClick = () => {
+  //   alert('Stop clicking me!');
+  // };
+  
+  // button.addEventListener('click', handleClick);
 
+  for (const button of document.querySelectorAll('.letter-buttons')) {
+    button.addEventListener('click', () => {
+      console.log("button value::: ", button.innerText);
+
+      disableLetterButton(button);
+      if (isLetterInWord(button.innerText)) {
+        handleCorrectGuess(button.innerText);
+      } else {
+        handleWrongGuess();
+      }
+    })
+  }
+
+  
 })();
