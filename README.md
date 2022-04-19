@@ -1,5 +1,7 @@
-# HB_Sharkwords
+Sharkword
 
-Authors: [Megan Phaunef] (https://github.com/mphaunef) & [Henry Hsu] (https://github.com/henryh28)
+Author: [Megan Phaunef](https://github.com/mphaunef)
 
+Author: [Henry Hsu](https://github.com/henryh28)
 
+Javascript game for Hackbright project
