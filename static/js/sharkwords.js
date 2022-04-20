@@ -15,7 +15,7 @@ const WORDS = [
   'chocolate',
 ];
 
-const numWrong = 0;
+let numWrong = 0;
 
 // Loop over the chars in `word` and create divs.
 // The divs should be appended to the section with id="word-container".
@@ -43,8 +43,6 @@ const generateLetterButtons = () => {
 // `buttonEl` is an `HTMLElement` object.
 //
 const disableLetterButton = (buttonEl) => {
-  console.log(" disabling this > ", buttonEl)
-
   buttonEl.disabled = true;
 };
 
@@ -59,33 +57,30 @@ const isLetterInWord = (letter) => {
 
 const handleCorrectGuess = (letter) => {
   // display div
-  console.log ("fill in: ", letter)
-
   const matches=document.querySelectorAll(`div.${letter}`);
 
   for (const match of matches) {
     match.innerText = letter;
-    disableLetterButton(match);
   }
-
-  const disableMe=document.querySelector(`.letter-buttons ${letter}`)
-  console.log(" selected: ::: > ", disableMe)
-
-  // handleCorrectGuess=(e,t)=>{
-  //   const n=document.querySelectorAll(`div.${e}`);
-  
-  //   for(const t of n)t.innerHTML=e,correctGuesses+=1;
-  // correctGuesses===t.length&&(disableAllLetterButtons(),
-  // document.querySelector("#win").style.display="block")}
-  
-
-
 }
 
+
+
 const handleWrongGuess = () => {
-  // numWrong += 1
-  // link numWrong with guess1-5.png
-  console.log ("Wrong guess $$$$$$$$$$")
+  numWrong += 1;
+
+  if (numWrong >= 5) {
+    document.querySelector("#play-again").style.display="block";
+
+    // disable all buttons when player loses the game
+    const all_buttons = document.querySelectorAll("button");
+
+    for (button of all_buttons) {
+      button.disabled = true;
+    }
+  }
+
+  document.querySelector("#shark-img img").setAttribute("src", `/static/images/guess${numWrong}.png`)
 }
 
 
@@ -94,42 +89,22 @@ const handleWrongGuess = () => {
 // It will be called when the file is run (because
 // we call the function on line 66)
 (function startGame() {
-  // For now, we'll hardcode the word that the user has to guess
-  // You can change this to choose a random word from WORDS once you
-  // finish this lab but we hard code it so we know what the word is
-  // and can tell if things look correct for this word
   const word = 'hello';
 
   createDivsForChars(word);
-  // call the function that makes an empty line for each letter in the word
-  // Replace this line with the function call
-
-  // call the function that makes a button for each letter in the alphabet
-  // Replace this line with the function call
   generateLetterButtons();
-
-  // in the next lab, you will be adding functionality to handle when
-  // someone clicks on a letter
-  // const button = document.querySelector('#angry-button');
-
-  // const handleClick = () => {
-  //   alert('Stop clicking me!');
-  // };
-  
-  // button.addEventListener('click', handleClick);
 
   for (const button of document.querySelectorAll('.letter-buttons')) {
     button.addEventListener('click', () => {
-      console.log("button value::: ", button.innerText);
-
-      disableLetterButton(button);
-      if (isLetterInWord(button.innerText)) {
-        handleCorrectGuess(button.innerText);
-      } else {
-        handleWrongGuess();
-      }
+      disableLetterButton(button) 
+      isLetterInWord(button.innerText) ? handleCorrectGuess(button.innerText) : handleWrongGuess();
     })
   }
+
+  const playAgain=document.querySelector("#play-again");
+  playAgain.addEventListener('click', () => {
+      window.location="/sharkwords";
+  })
 
   
 })();
